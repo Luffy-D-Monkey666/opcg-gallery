@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply box-border;
+  }
+  
+  html {
+    @apply antialiased;
+  }
+  
+  body {
+    @apply bg-background text-text-primary;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-surface/80 backdrop-blur-xl;
+  }
+  
+  .card-hover {
+    @apply transition-all duration-300 ease-apple hover:scale-[1.02] hover:shadow-2xl;
+  }
+  
+  .btn-primary {
+    @apply bg-primary text-white px-6 py-3 rounded-apple-sm font-medium
+           transition-all duration-200 ease-apple
+           hover:bg-primary-light active:scale-95;
+  }
+  
+  .btn-secondary {
+    @apply bg-surface-secondary text-text-primary px-6 py-3 rounded-apple-sm font-medium
+           transition-all duration-200 ease-apple
+           hover:bg-surface active:scale-95;
+  }
+}
+
+/* 自定义滚动条 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-surface-secondary rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-text-tertiary;
+}
+
+/* 选中文字样式 */
+::selection {
+  @apply bg-primary/30 text-white;
+}
