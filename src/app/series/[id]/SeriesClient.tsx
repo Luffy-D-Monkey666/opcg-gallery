@@ -145,8 +145,18 @@ export default function SeriesClient({ series }: SeriesClientProps) {
                   className="group cursor-pointer"
                 >
                   <div className="relative bg-gray-900 rounded-xl overflow-hidden hover:scale-[1.02] transition-transform aspect-[2/3] border border-gray-800 hover:border-gray-600">
-                    {/* Card Placeholder */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
+                    {/* Card Image */}
+                    <img 
+                      src={card.imageUrl} 
+                      alt={card.name}
+                      className="absolute inset-0 w-full h-full object-cover"
+                      onError={(e) => {
+                        // 图片加载失败时显示占位符
+                        (e.target as HTMLImageElement).style.display = 'none';
+                      }}
+                    />
+                    {/* Fallback Placeholder - 图片加载失败或加载中时显示 */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center -z-10">
                       <div className="text-center p-4">
                         <div className="text-4xl font-bold text-blue-500 mb-2">{card.number.split('-')[1]}</div>
                         <div className="text-xs text-gray-500">{card.rarity}</div>
@@ -250,12 +260,22 @@ export default function SeriesClient({ series }: SeriesClientProps) {
 
               <div className="p-6">
                 <div className="flex flex-col md:flex-row gap-6">
-                  {/* Card Image Placeholder */}
-                  <div className="w-full md:w-1/3 aspect-[2/3] bg-gradient-to-br from-gray-800 to-gray-900 
-                                rounded-xl flex items-center justify-center border border-gray-700">
-                    <div className="text-center">
-                      <div className="text-6xl font-bold text-blue-500 mb-4">{selectedCard.number.split('-')[1]}</div>
-                      <div className="text-xl text-gray-400">{selectedCard.rarity}</div>
+                  {/* Card Image */}
+                  <div className="w-full md:w-1/3 aspect-[2/3] relative rounded-xl overflow-hidden border border-gray-700">
+                    <img 
+                      src={selectedCard.imageUrl} 
+                      alt={selectedCard.name}
+                      className="absolute inset-0 w-full h-full object-cover"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).style.display = 'none';
+                      }}
+                    />
+                    {/* Fallback */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center -z-10">
+                      <div className="text-center">
+                        <div className="text-6xl font-bold text-blue-500 mb-4">{selectedCard.number.split('-')[1]}</div>
+                        <div className="text-xl text-gray-400">{selectedCard.rarity}</div>
+                      </div>
                     </div>
                   </div>
 
