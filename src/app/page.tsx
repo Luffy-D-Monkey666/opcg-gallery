@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Search, Globe, ChevronRight } from 'lucide-react';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { mockSeries } from '@/lib/data';
 
@@ -133,16 +133,14 @@ export default function Home() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {filteredSeries.map((series, index) => (
-              <Link
-                key={series.id}
-                href={`/series/${series.id}`}
-              >
               <motion.div
+                key={series.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05 }}
                 onMouseEnter={() => setHoveredSeries(series.id)}
                 onMouseLeave={() => setHoveredSeries(null)}
+                onClick={() => window.location.href = `/series/${series.id}`}
                 className="group cursor-pointer"
               >
                 <div className={`relative bg-surface rounded-apple p-6 card-hover border-2 transition-all duration-300
@@ -177,7 +175,6 @@ export default function Home() {
                   </div>
                 </div>
               </motion.div>
-              </Link>
             ))}
           </div>
         </div>
