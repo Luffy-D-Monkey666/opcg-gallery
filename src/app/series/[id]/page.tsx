@@ -6,6 +6,7 @@ import { ArrowLeft, Filter, Grid3X3, List, Search } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
 import { mockSeries, mockCards, Card, rarityColors } from '@/lib/data';
+import PriceChart from '@/components/PriceChart';
 
 const filters = ['All', 'Leader', 'Character', 'Event', 'Stage'];
 const rarities = ['All', 'L', 'SR', 'R', 'UC', 'C', 'SEC'];
@@ -315,20 +316,12 @@ export default function SeriesPage() {
                     </div>
                   )}
 
-                  {/* Price Info (Placeholder) */}
+                  {/* Price Chart */}
                   <div className="border-t border-surface-secondary pt-4">
-                    <h3 className="text-lg font-semibold mb-3">Price Information</h3>
-                    <div className="flex items-center justify-between p-4 bg-surface-secondary rounded-apple-sm">
-                      <span className="text-text-secondary">集换社 (Jihuanshe)</span>
-                      <div className="flex items-center space-x-2">
-                        <span className="text-xl font-bold">¥{selectedCard.price?.jihuanshe || '--'}</span>
-                        {selectedCard.price?.trend === 'up' && <span className="text-success text-sm">↑</span>}
-                        {selectedCard.price?.trend === 'down' && <span className="text-danger text-sm">↓</span>}
-                      </div>
-                    </div>
-                    <p className="text-xs text-text-tertiary mt-2">
-                      Price trend chart coming soon...
-                    </p>
+                    <PriceChart 
+                      cardId={selectedCard.id} 
+                      cardName={selectedCard.name}
+                    />
                   </div>
                 </div>
               </div>
