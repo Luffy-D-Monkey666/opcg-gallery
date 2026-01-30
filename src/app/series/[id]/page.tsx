@@ -11,6 +11,13 @@ import PriceChart from '@/components/PriceChart';
 const filters = ['All', 'Leader', 'Character', 'Event', 'Stage'];
 const rarities = ['All', 'L', 'SR', 'R', 'UC', 'C', 'SEC'];
 
+// 静态生成所有系列页面
+export function generateStaticParams() {
+  return mockSeries.map((series) => ({
+    id: series.id,
+  }));
+}
+
 export default function SeriesPage() {
   const params = useParams();
   const seriesId = params.id as string;
