@@ -1,15 +1,15 @@
-import { mockSeries } from '@/lib/data';
+import { allSeries, getCardsForSeries } from '@/lib/data';
 import SeriesClient from './SeriesClient';
 
-// 静态生成所有系列页面
+// 静态生成所有系列页面（52个）
 export function generateStaticParams() {
-  return mockSeries.map((series) => ({
+  return allSeries.map((series) => ({
     id: series.id,
   }));
 }
 
 export default function SeriesPage({ params }: { params: { id: string } }) {
-  const series = mockSeries.find((s) => s.id === params.id);
+  const series = allSeries.find((s) => s.id === params.id);
   
   if (!series) {
     return (
@@ -24,5 +24,8 @@ export default function SeriesPage({ params }: { params: { id: string } }) {
     );
   }
 
-  return <SeriesClient series={series} />;
+  // 获取该系列的完整卡片数据
+  const cards = getCardsForSeries(series.code, series.id);
+
+  return <SeriesClient series={series} cards={cards} />;
 }

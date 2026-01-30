@@ -4,23 +4,24 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { ArrowLeft, Filter, Grid3X3, List, Search, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { mockCards, Card, rarityColors, Series } from '@/lib/data';
+import { Card, rarityColors, Series } from '@/lib/data';
 
 const filters = ['All', 'Leader', 'Character', 'Event', 'Stage'];
 const rarities = ['All', 'L', 'SR', 'R', 'UC', 'C', 'SEC'];
 
 interface SeriesClientProps {
   series: Series;
+  cards: Card[];
 }
 
-export default function SeriesClient({ series }: SeriesClientProps) {
+export default function SeriesClient({ series, cards }: SeriesClientProps) {
   const [activeFilter, setActiveFilter] = useState('All');
   const [activeRarity, setActiveRarity] = useState('All');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCard, setSelectedCard] = useState<Card | null>(null);
 
-  const filteredCards = mockCards.filter((card) => {
+  const filteredCards = cards.filter((card) => {
     const matchesFilter = activeFilter === 'All' || card.type === activeFilter.toUpperCase();
     const matchesRarity = activeRarity === 'All' || card.rarity === activeRarity;
     const matchesSearch = card.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
